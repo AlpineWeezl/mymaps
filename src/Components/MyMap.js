@@ -10,7 +10,6 @@ const MyMap = (props) => {
                 )
             })
             }
-
         </Map>
     )
 }
