@@ -3,14 +3,7 @@ import React from 'react'
 
 const MyMap = (props) => {
     return (
-        <Map height={900} defaultCenter={[47.584102, 10.5410919]} defaultZoom={11}>
-            {props.places.map((place) => {
-                return (
-                    <Marker width={50} anchor={[place.lat, place.long]} />
-                )
-            })
-            }
-        </Map>
+        <Marker key={`marker_${props.placeId}`} width={50} anchor={[props.lat, props.long]} />
     )
 }
 
