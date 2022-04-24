@@ -1,0 +1,64 @@
+{
+    "categories": [
+        {
+            "categoryId": 0,
+            "categoryName": "Home"
+        },
+        {
+            "categoryId": 1,
+            "categoryName": "Schools"
+        },
+        {
+            "categoryId": 2,
+            "categoryName": "Work"
+        },
+        {
+            "categoryId": 3,
+            "categoryName": "Favorite Places"
+        }
+    ],
+    "places": [
+        {
+            "placeId": 0,
+            "categoryId": 0,
+            "name": "Current Home",
+            "lat": 47.584102,
+            "long": 10.5410919
+        },
+        {
+            "placeId": 1,
+            "categoryId": 1,
+            "name": "Volksschule Pfronten",
+            "lat": 47.579446,
+            "long": 10.5586562
+        },
+        {
+            "placeId": 2,
+            "categoryId": 1,
+            "name": "Technikerschule Allgäu",
+            "lat": 47.7191664,
+            "long": 10.3165116
+        },
+        {
+            "placeId": 3,
+            "categoryId": 1,
+            "name": "WBS Training AG Kempten",
+            "lat": 47.7243881,
+            "long": 10.3211964
+        },
+        {
+            "placeId": 4,
+            "categoryId": 2,
+            "name": "Voith Turbo BHS Getriebe Gmbh",
+            "lat": 47.5241211,
+            "long": 10.2796891
+        },
+        {
+            "placeId": 5,
+            "categoryId": 2,
+            "name": "Felss Systems GmbH Nesselwang",
+            "lat": 47.617617540311144,
+            "long": 10.508703374469764
+        }
+    ]
+}
