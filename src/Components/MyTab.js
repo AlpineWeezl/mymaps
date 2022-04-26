@@ -1,28 +1,56 @@
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Map, Marker } from 'pigeon-maps';
 import 'react-tabs/style/react-tabs.css';
-import MyMap from './MyMap';
 
-export default () => (
-    <Tabs>
-        <TabList>
-            <Tab>Home</Tab>
-            <Tab>Schools</Tab>
-            <Tab>Favorite Places</Tab>
-            <Tab>Working Places, so far</Tab>
-        </TabList>
+const MyTab = (props) => {
+    const midCoord = (category) => {
+        let latMin = null;
+        let latMax = null;
+        let longMin = null;
+        let longMax = null;
 
-        <TabPanel key={'tabHome'}>
-            <MyMap lat={['47.584102']} long={['10.5410919']} />
-        </TabPanel>
-        <TabPanel key={'tabSchools'}>
-            <MyMap lat={['47.584102']} long={['10.5410919']} />
-        </TabPanel>
-        <TabPanel key={'tabFavorite'}>
-            <MyMap lat={['47.584102']} long={['10.5410919']} />
-        </TabPanel>
-        <TabPanel key={'tabWork'}>
-            <MyMap lat={['47.5241211', '47.7121255']} long={['10.2796891', 10.3197081]} />
-        </TabPanel>
+        props.places.map((place) => {
+            if (place.categoryId === category.categoryId) {
+                if (latMin && latMax && longMin && longMax) {
+                    place.lat < latMin ? latMin = place.lat : latMin = latMin;
+                    place.lat > latMax ? latMax = place.lat : latMax = latMin;
+                    place.long < longMin ? longMin = place.long : longMin = longMin;
+                    place.long > longMax ? longMax = place.long : longMax = longMax;
+                } else {
+                    latMin = place.lat;
+                    latMax = place.lat;
+                    longMin = place.long;
+                    longMax = place.long;
+                }
+            }
+        });
 
-    </Tabs>
-);
+        if (latMin && latMax && longMin && longMax) {
+            return [
+                (latMax - latMin) / 2 + latMin,
+                (longMax - longMin) / 2 + longMin
+            ]
+        }
+    }
+
+    return (
+        <Map key={`mapItem_${props.category.categoryId}`} height={640} defaultCenter={midCoord(props.category)} defaultZoom={11}>
+            {
+                props.places.map(
+                    (place) => {
+                        return (
+                            (place.categoryId === props.category.categoryId) ? (
+                                <Marker
+                                    key={`marker_${place.placeId}`}
+                                    width={50}
+                                    anchor={[place.lat, place.long]}
+                                />
+                            ) : ('')
+                        );
+                    }
+                )
+            }
+        </Map>
+    )
+}
+
+export default MyTab;

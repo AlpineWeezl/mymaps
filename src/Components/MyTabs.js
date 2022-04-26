@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import 'react-tabs/style/react-tabs.css';
-import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
-import MyMap from './MyMap'
+import MyTab from './MyTab'
 import axios from 'axios';
-import { Map } from 'pigeon-maps';
+import Spinner from 'react-spinner-material';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 
 const MyTabs = () => {
     const [categories, setCategories] = useState(null);
@@ -19,48 +20,38 @@ const MyTabs = () => {
     return (
         <>
             {(categories && places) ? (
-                <Tabs>
-                    <TabList>
+                <>
+                    <Tabs value='0' key={`tabList`}>
+                        <TabList>
                         {
                             categories.map(
                                 (category) => {
                                     return (
-                                        <>
-                                            <Tab key={`tabListItem_${category.categoryId}`}>{category.name}</Tab>
-                                        </>
+                                        <Tab
+                                            key={`tabListItem_${category.categoryId}`}
+                                            >
+                                                {category.categoryName}
+                                        </Tab>
                                     )
                                 }
                             )
                         }
-                    </TabList>
-                    {
-                        categories.map(
-                            (category) => {
-                                return (
-                                    <TabPanel key={`tabPanel_${category.categoryId}`}>
-                                        <Map key={`mapItem_${category.categoryId}`} height={900} defaultCenter={[47.584102, 10.5410919]} defaultZoom={9}>
-                                            {
-                                                places.map(
-                                                    (place) => {
-                                                        {
-                                                            places.map((place) => {
-                                                                return (
-                                                                    (place.categoryId === category.categoryId) ? (<MyMap key={`place${place.placeId}`} place={place} />) : ('')
-                                                                );
-                                                            })
-                                                        }
-                                                    }
-                                                )
-                                            }
-                                        </Map>
-                                    </TabPanel>
-                                )
-                            }
-                        )
-                    }
-                </Tabs>
+                        </TabList>
+                        {
+                            categories.map(
+                                (category) => {
+                                    return (
+                                        <TabPanel key={`tabPanel_${category.categoryId}`}>
+                                            <MyTab category={category} places={places} />
+                                        </TabPanel>
+                                    )
+                                }
+                            )
+                        }
+                    </Tabs>
+                </>
             ) : (
-                <div>Loading...</div>
+                <Spinner radius={120} color={"#333"} stroke={2} visible={true} />
             )}
         </>
     )
